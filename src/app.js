@@ -25,9 +25,6 @@ mongoose.connect(process.env.MONGO_URL, {
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-// Set EJS as templating engine
-app.set("view engine", "ejs")
-
 // Step 5 - set up multer for storing uploaded files
 
 var multer = require("multer")
@@ -52,7 +49,7 @@ var imgModel = require("./model")
 app.get("/", async (req, res) => {
   try {
     const articles = await imgModel.find({})
-    res.render("imagesPage", { items: articles })
+    res.send(articles)
   } catch (err) {
     console.log(err)
     res.status(500).send("An error occurred", err)
