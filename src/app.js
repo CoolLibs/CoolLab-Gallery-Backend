@@ -37,13 +37,14 @@ var imgModel = require("./model")
 // Step 7 - the GET request handler that provides the HTML UI
 
 app.get("/", async (req, res) => {
-  try {
-    const articles = await imgModel.find({})
-    res.send(articles)
-  } catch (err) {
-    console.log(err)
-    res.status(500).send("An error occurred", err)
-  }
+  res.send("hello")
+  //   try {
+  //     const articles = await imgModel.find({})
+  //     res.send(articles)
+  //   } catch (err) {
+  //     console.log(err)
+  //     res.status(500).send("An error occurred", err)
+  //   }
 })
 
 // Step 8 - the POST handler for processing the uploaded file
