@@ -11,28 +11,6 @@ var fs = require("fs")
 var path = require("path")
 require("dotenv/config")
 
-// Step 2 - connect to the database
-const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    })
-    console.log(`MongoDB Connected: ${conn.connection.host}`)
-  } catch (error) {
-    console.log(error)
-    process.exit(1)
-  }
-}
-
-var port = process.env.PORT || "3000"
-// Step 3 - code was added to ./models.js
-connectDB().then(() => {
-  app.listen(port, (err) => {
-    if (err) throw err
-    console.log("Server listening on port", port)
-  })
-})
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -88,4 +66,27 @@ app.post("/", upload.single("image"), async (req, res, next) => {
   } catch {
     console.log(err)
   }
+})
+
+// Step 2 - connect to the database
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    console.log(`MongoDB Connected: ${conn.connection.host}`)
+  } catch (error) {
+    console.log(error)
+    process.exit(1)
+  }
+}
+
+var port = process.env.PORT || "3000"
+// Step 3 - code was added to ./models.js
+connectDB().then(() => {
+  app.listen(port, (err) => {
+    if (err) throw err
+    console.log("Server listening on port", port)
+  })
 })
