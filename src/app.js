@@ -13,10 +13,6 @@ require("dotenv/config")
 
 // Step 2 - connect to the database
 
-mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
 
 // Step 3 - code was added to ./models.js
 
@@ -80,8 +76,16 @@ app.post("/", upload.single("image"), async (req, res, next) => {
 
 // Step 9 - configure the server's port
 
-var port = process.env.PORT || "3000"
-app.listen(port, (err) => {
-  if (err) throw err
-  console.log("Server listening on port", port)
-})
+
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    var port = process.env.PORT || "3000"
+    app.listen(port, (err) => {
+      if (err) throw err
+      console.log("Server listening on port", port)
+    })
+  })
