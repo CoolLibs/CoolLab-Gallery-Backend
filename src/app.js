@@ -6,6 +6,7 @@ var express = require("express")
 var app = express()
 var bodyParser = require("body-parser")
 var mongoose = require("mongoose")
+var cors = require("cors")
 
 var fs = require("fs")
 var path = require("path")
@@ -30,6 +31,8 @@ var port = process.env.PORT || "3000"
 connectDB().then(() => {
   app.use(bodyParser.urlencoded({ extended: false }))
   app.use(bodyParser.json())
+
+  app.use(cors())
 
   // Step 5 - set up multer for storing uploaded files
 
